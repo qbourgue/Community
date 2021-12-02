@@ -1,58 +1,1394 @@
 {
-    "harfanglab": [
+  "fortiproxy": [
+    {
+      "value": "Traffic allowed between {source.ip}:{source.port} and {destination.ip}:{destination.port}",
+      "relationships": [
         {
-            "value": "Hostname: {host.hostname} - Source: {event.provider} - EventID: {event.code}",
-            "conditions": [
-                {
-                    "field": "event.provider"
-                }
-            ]
-        },
-        {
-            "value": "{action.properties.TargetUserName} failed to log on {host.hostname} (LogonType {action.properties.LogonType})",
-            "relationships": [
-                {
-                    "source": "action.properties.TargetUserName",
-                    "target": "host.hostname",
-                    "type": "failed to log on to"
-                }
-            ],
-            "conditions": [
-                {
-                    "field": "event.provider"
-                },
-                {
-                    "field": "event.code",
-                    "value": "4625"
-                }
-            ]
-        },
-        {
-            "value": "{process.executable} ({process.pe.company}) executed by {user.name} is running on {host.hostname}",
-            "conditions": [
-                {
-                    "field": "event.category",
-                    "value": "process"
-                }
-            ]
-        },
-        {
-            "value": "{process.executable} on {host.hostname} handles network traffic from {source.ip}:{source.port} to {destination.ip}:{destination.port}",
-            "relationships": [
-                {
-                    "source": "source.ip",
-                    "target": "destination.ip",
-                    "type": "connected to"
-                }
-            ],
-            "conditions": [
-                {
-                    "field": "event.category",
-                    "value": "network"
-                }
-            ]
+          "source": "source.ip",
+          "target": "destination.ip",
+          "type": "connected to"
         }
-    ],
+      ],
+      "conditions": [
+        {
+          "field": "event.kind",
+          "value": "traffic"
+        },
+        {
+          "field": "event.category",
+          "value": "forward"
+        },
+        {
+          "field": "action.name",
+          "value": "accept"
+        }
+      ]
+    },
+    {
+      "value": "Traffic allowed between {source.ip}:{source.port} and {url.full}",
+      "relationships": [
+        {
+          "source": "source.ip",
+          "target": "url.full",
+          "type": "connected to"
+        }
+      ],
+      "conditions": [
+        {
+          "field": "event.kind",
+          "value": "traffic"
+        },
+        {
+          "field": "event.category",
+          "value": "forward"
+        },
+        {
+          "field": "action.name",
+          "value": "accept"
+        },
+        {
+          "field": "url.full"
+        }
+      ]
+    },
+    {
+      "value": "Traffic allowed for {user.name} between {source.ip}:{source.port} and {destination.ip}:{destination.port}",
+      "relationships": [
+        {
+          "source": "source.ip",
+          "target": "destination.ip",
+          "type": "connected to"
+        }
+      ],
+      "conditions": [
+        {
+          "field": "event.kind",
+          "value": "traffic"
+        },
+        {
+          "field": "event.category",
+          "value": "forward"
+        },
+        {
+          "field": "action.name",
+          "value": "accept"
+        },
+        {
+          "field": "user.name"
+        }
+      ]
+    },
+    {
+      "value": "Traffic allowed for {user.name} between {source.ip}:{source.port} and {url.full}",
+      "relationships": [
+        {
+          "source": "source.ip",
+          "target": "url.full",
+          "type": "connected to"
+        }
+      ],
+      "conditions": [
+        {
+          "field": "event.kind",
+          "value": "traffic"
+        },
+        {
+          "field": "event.category",
+          "value": "forward"
+        },
+        {
+          "field": "action.name",
+          "value": "accept"
+        },
+        {
+          "field": "url.full"
+        },
+        {
+          "field": "user.name"
+        }
+      ]
+    },
+    {
+      "value": "Traffic denied between {source.ip}:{source.port} and {url.full}. Reason : {msg}",
+      "relationships": [
+        {
+          "source": "source.ip",
+          "target": "url.full",
+          "type": "was denied a connection to"
+        }
+      ],
+      "conditions": [
+        {
+          "field": "event.kind",
+          "value": "traffic"
+        },
+        {
+          "field": "event.category",
+          "value": "forward"
+        },
+        {
+          "field": "action.name",
+          "value": "deny"
+        },
+        {
+          "field": "url.full"
+        }
+      ]
+    },
+    {
+      "value": "Application {fortinet.app} allowed between {source.ip}:{source.port} and {destination.ip}:{destination.port}",
+      "relationships": [
+        {
+          "source": "source.ip",
+          "target": "destination.ip",
+          "type": "connected to"
+        }
+      ],
+      "conditions": [
+        {
+          "field": "event.kind",
+          "value": "utm"
+        },
+        {
+          "field": "event.category",
+          "value": "app-ctrl"
+        },
+        {
+          "field": "action.name",
+          "value": "pass"
+        }
+      ]
+    },
+    {
+      "value": "Application {fortinet.app} allowed between {source.ip}:{source.port} and {url.full}",
+      "relationships": [
+        {
+          "source": "source.ip",
+          "target": "url.full",
+          "type": "connected to"
+        }
+      ],
+      "conditions": [
+        {
+          "field": "event.kind",
+          "value": "utm"
+        },
+        {
+          "field": "event.category",
+          "value": "app-ctrl"
+        },
+        {
+          "field": "action.name",
+          "value": "pass"
+        },
+        {
+          "field": "url.full"
+        }
+      ]
+    },
+    {
+      "value": "Application {fortinet.app} allowed for user {user.name} between {source.ip}:{source.port} and {destination.ip}:{destination.port}",
+      "relationships": [
+        {
+          "source": "source.ip",
+          "target": "destination.ip",
+          "type": "connected to"
+        }
+      ],
+      "conditions": [
+        {
+          "field": "event.kind",
+          "value": "utm"
+        },
+        {
+          "field": "event.category",
+          "value": "app-ctrl"
+        },
+        {
+          "field": "action.name",
+          "value": "pass"
+        },
+        {
+          "field": "user.name"
+        }
+      ]
+    },
+    {
+      "value": "Application {fortinet.app} allowed for user {user.name} between {source.ip}:{source.port} and {url.full}",
+      "relationships": [
+        {
+          "source": "source.ip",
+          "target": "url.full",
+          "type": "connected to"
+        }
+      ],
+      "conditions": [
+        {
+          "field": "event.kind",
+          "value": "utm"
+        },
+        {
+          "field": "event.category",
+          "value": "app-ctrl"
+        },
+        {
+          "field": "action.name",
+          "value": "pass"
+        },
+        {
+          "field": "url.full"
+        },
+        {
+          "field": "user.name"
+        }
+      ]
+    },
+    {
+      "value": "Application {fortinet.app} allowed between {source.ip}:{source.port} and {destination.ip}:{destination.port}",
+      "relationships": [
+        {
+          "source": "source.ip",
+          "target": "destination.ip",
+          "type": "connected to"
+        }
+      ],
+      "conditions": [
+        {
+          "field": "event.kind",
+          "value": "utm"
+        },
+        {
+          "field": "event.category",
+          "value": "app-ctrl"
+        },
+        {
+          "field": "action.name",
+          "value": "pass"
+        }
+      ]
+    },
+    {
+      "value": "Application {fortinet.app} allowed between {source.ip}:{source.port} and {url.full}",
+      "relationships": [
+        {
+          "source": "source.ip",
+          "target": "url.full",
+          "type": "connected to"
+        }
+      ],
+      "conditions": [
+        {
+          "field": "event.kind",
+          "value": "utm"
+        },
+        {
+          "field": "event.category",
+          "value": "app-ctrl"
+        },
+        {
+          "field": "action.name",
+          "value": "pass"
+        },
+        {
+          "field": "url.full"
+        }
+      ]
+    },
+    {
+      "value": "Application {fortinet.app} blocked between {source.ip}:{source.port} and {destination.ip}:{destination.port}",
+      "relationships": [
+        {
+          "source": "source.ip",
+          "target": "destination.ip",
+          "type": "was denied a connection to"
+        }
+      ],
+      "conditions": [
+        {
+          "field": "event.kind",
+          "value": "utm"
+        },
+        {
+          "field": "event.category",
+          "value": "app-ctrl"
+        },
+        {
+          "field": "action.name",
+          "value": "block"
+        }
+      ]
+    },
+    {
+      "value": "Application {fortinet.app} blocked between {source.ip}:{source.port} and {url.full}",
+      "relationships": [
+        {
+          "source": "source.ip",
+          "target": "url.full",
+          "type": "was denied a connection to"
+        }
+      ],
+      "conditions": [
+        {
+          "field": "event.kind",
+          "value": "utm"
+        },
+        {
+          "field": "event.category",
+          "value": "app-ctrl"
+        },
+        {
+          "field": "action.name",
+          "value": "block"
+        },
+        {
+          "field": "url.full"
+        }
+      ]
+    },
+    {
+      "value": "Application {fortinet.app} blocked for user {user.name} between {source.ip}:{source.port} and {destination.ip}:{destination.port}",
+      "relationships": [
+        {
+          "source": "source.ip",
+          "target": "destination.ip",
+          "type": "was denied a connection to"
+        }
+      ],
+      "conditions": [
+        {
+          "field": "event.kind",
+          "value": "utm"
+        },
+        {
+          "field": "event.category",
+          "value": "app-ctrl"
+        },
+        {
+          "field": "action.name",
+          "value": "block"
+        },
+        {
+          "field": "user.name"
+        }
+      ]
+    },
+    {
+      "value": "Application {fortinet.app} denied for user {user.name} between {source.ip}:{source.port} and {url.full}",
+      "relationships": [
+        {
+          "source": "source.ip",
+          "target": "url.full",
+          "type": "was denied a connection to"
+        }
+      ],
+      "conditions": [
+        {
+          "field": "event.kind",
+          "value": "utm"
+        },
+        {
+          "field": "event.category",
+          "value": "app-ctrl"
+        },
+        {
+          "field": "action.name",
+          "value": "block"
+        },
+        {
+          "field": "url.full"
+        },
+        {
+          "field": "user.name"
+        }
+      ]
+    },
+    {
+      "value": "Web traffic allowed between {source.ip}:{source.port} and {url.full}",
+      "relationships": [
+        {
+          "source": "source.ip",
+          "target": "url.full",
+          "type": "connected to"
+        }
+      ],
+      "conditions": [
+        {
+          "field": "event.kind",
+          "value": "utm"
+        },
+        {
+          "field": "event.category",
+          "value": "webfilter"
+        },
+        {
+          "field": "action.name",
+          "value": "passthrough"
+        },
+        {
+          "field": "url.full"
+        }
+      ]
+    },
+    {
+      "value": "Web traffic allowed for {user.name} between {source.ip}:{source.port} and {url.full}",
+      "relationships": [
+        {
+          "source": "source.ip",
+          "target": "url.full",
+          "type": "connected to"
+        }
+      ],
+      "conditions": [
+        {
+          "field": "event.kind",
+          "value": "utm"
+        },
+        {
+          "field": "event.category",
+          "value": "webfilter"
+        },
+        {
+          "field": "action.name",
+          "value": "passthrough"
+        },
+        {
+          "field": "url.full"
+        },
+        {
+          "field": "user.name"
+        }
+      ]
+    },
+    {
+      "value": "Web traffic allowed between {source.ip}:{source.port} and {url.full}",
+      "relationships": [
+        {
+          "source": "source.ip",
+          "target": "url.full",
+          "type": "connected to"
+        }
+      ],
+      "conditions": [
+        {
+          "field": "event.kind",
+          "value": "traffic"
+        },
+        {
+          "field": "event.category",
+          "value": "http-transaction"
+        },
+        {
+          "field": "url.full"
+        }
+      ]
+    },
+    {
+      "value": "Web traffic allowed for user {user.name} between {source.ip}:{source.port} and {url.full}",
+      "relationships": [
+        {
+          "source": "source.ip",
+          "target": "url.full",
+          "type": "connected to"
+        }
+      ],
+      "conditions": [
+        {
+          "field": "event.kind",
+          "value": "traffic"
+        },
+        {
+          "field": "event.category",
+          "value": "http-transaction"
+        },
+        {
+          "field": "url.full"
+        },
+        {
+          "field": "user.name"
+        }
+      ]
+    },
+    {
+      "value": "Data Loss Preventation {action.name} : {source.ip} accessed to {url.full}",
+      "relationships": [
+        {
+          "source": "source.ip",
+          "target": "url.full",
+          "type": "connected to"
+        }
+      ],
+      "conditions": [
+        {
+          "field": "event.kind",
+          "value": "utm"
+        },
+        {
+          "field": "event.category",
+          "value": "dlp"
+        },
+        {
+          "field": "url.full"
+        }
+      ]
+    },
+    {
+      "value": "Data Loss Preventation {action.name} : {source.ip} accessed to {destination.ip}",
+      "relationships": [
+        {
+          "source": "source.ip",
+          "target": "url.full",
+          "type": "connected to"
+        }
+      ],
+      "conditions": [
+        {
+          "field": "event.kind",
+          "value": "utm"
+        },
+        {
+          "field": "event.category",
+          "value": "dlp"
+        }
+      ]
+    }
+  ],
+  "palo alto": [
+    {
+      "value": "{event.action} threat between {source.ip} and {destination.ip}",
+      "conditions": [
+        {
+          "field": "event.category",
+          "value": "threat"
+        }
+      ]
+    },
+    {
+      "value": "{event.action} threat between {source.ip}:{source.port} and {destination.ip}:{destination.port}",
+      "conditions": [
+        {
+          "field": "event.category",
+          "value": "threat"
+        },
+        {
+          "field": "network.transport",
+          "value": "udp"
+        }
+      ]
+    },
+    {
+      "value": "{event.action} threat between {source.ip}:{source.port} and {destination.ip}:{destination.port}",
+      "conditions": [
+        {
+          "field": "event.category",
+          "value": "threat"
+        },
+        {
+          "field": "network.transport",
+          "value": "tcp"
+        }
+      ]
+    },
+    {
+      "value": "Session denied between {source.ip}:{source.port} and {destination.ip}:{destination.port}",
+      "conditions": [
+        {
+          "field": "event.category",
+          "value": "traffic"
+        },
+        {
+          "field": "action.type",
+          "value": "deny"
+        },
+        {
+          "field": "network.transport",
+          "value": "udp"
+        }
+      ],
+      "relationships": [
+        {
+          "source": "source.ip",
+          "target": "destination.ip",
+          "type": "was denied a connection to"
+        }
+      ]
+    },
+    {
+      "value": "Session dropped between {source.ip}:{source.port} and {destination.ip}:{destination.port}",
+      "conditions": [
+        {
+          "field": "event.category",
+          "value": "traffic"
+        },
+        {
+          "field": "action.type",
+          "value": "drop"
+        },
+        {
+          "field": "network.transport",
+          "value": "udp"
+        }
+      ],
+      "relationships": [
+        {
+          "source": "source.ip",
+          "target": "destination.ip",
+          "type": "was denied a connection to"
+        }
+      ]
+    },
+    {
+      "value": "Session ended between {source.ip}:{source.port} and {destination.ip}:{destination.port}",
+      "conditions": [
+        {
+          "field": "event.category",
+          "value": "traffic"
+        },
+        {
+          "field": "action.type",
+          "value": "end"
+        },
+        {
+          "field": "network.transport",
+          "value": "udp"
+        }
+      ],
+      "relationships": [
+        {
+          "source": "source.ip",
+          "target": "destination.ip",
+          "type": "connected to"
+        }
+      ]
+    },
+    {
+      "value": "Session started between {source.ip}:{source.port} and {destination.ip}:{destination.port}",
+      "conditions": [
+        {
+          "field": "event.category",
+          "value": "traffic"
+        },
+        {
+          "field": "action.type",
+          "value": "start"
+        },
+        {
+          "field": "network.transport",
+          "value": "udp"
+        }
+      ],
+      "relationships": [
+        {
+          "source": "source.ip",
+          "target": "destination.ip",
+          "type": "connected to"
+        }
+      ]
+    },
+    {
+      "value": "Session denied between {source.ip}:{source.port} and {destination.ip}:{destination.port}",
+      "conditions": [
+        {
+          "field": "event.category",
+          "value": "traffic"
+        },
+        {
+          "field": "action.type",
+          "value": "deny"
+        },
+        {
+          "field": "network.transport",
+          "value": "tcp"
+        }
+      ],
+      "relationships": [
+        {
+          "source": "source.ip",
+          "target": "destination.ip",
+          "type": "was denied a connection to"
+        }
+      ]
+    },
+    {
+      "value": "Session dropped between {source.ip}:{source.port} and {destination.ip}:{destination.port}",
+      "conditions": [
+        {
+          "field": "event.category",
+          "value": "traffic"
+        },
+        {
+          "field": "action.type",
+          "value": "drop"
+        },
+        {
+          "field": "network.transport",
+          "value": "tcp"
+        }
+      ],
+      "relationships": [
+        {
+          "source": "source.ip",
+          "target": "destination.ip",
+          "type": "was denied a connection to"
+        }
+      ]
+    },
+    {
+      "value": "Session ended between {source.ip}:{source.port} and {destination.ip}:{destination.port}",
+      "conditions": [
+        {
+          "field": "event.category",
+          "value": "traffic"
+        },
+        {
+          "field": "action.type",
+          "value": "end"
+        },
+        {
+          "field": "network.transport",
+          "value": "tcp"
+        }
+      ],
+      "relationships": [
+        {
+          "source": "source.ip",
+          "target": "destination.ip",
+          "type": "connected to"
+        }
+      ]
+    },
+    {
+      "value": "Session started between {source.ip}:{source.port} and {destination.ip}:{destination.port}",
+      "conditions": [
+        {
+          "field": "event.category",
+          "value": "traffic"
+        },
+        {
+          "field": "action.type",
+          "value": "start"
+        },
+        {
+          "field": "network.transport",
+          "value": "tcp"
+        }
+      ],
+      "relationships": [
+        {
+          "source": "source.ip",
+          "target": "destination.ip",
+          "type": "connected to"
+        }
+      ]
+    },
+    {
+      "value": "Session denied between {source.ip} and {destination.ip}",
+      "conditions": [
+        {
+          "field": "event.category",
+          "value": "traffic"
+        },
+        {
+          "field": "action.type",
+          "value": "deny"
+        }
+      ],
+      "relationships": [
+        {
+          "source": "source.ip",
+          "target": "destination.ip",
+          "type": "was denied a connection to"
+        }
+      ]
+    },
+    {
+      "value": "Session dropped between {source.ip} and {destination.ip}",
+      "conditions": [
+        {
+          "field": "event.category",
+          "value": "traffic"
+        },
+        {
+          "field": "action.type",
+          "value": "drop"
+        }
+      ],
+      "relationships": [
+        {
+          "source": "source.ip",
+          "target": "destination.ip",
+          "type": "was denied a connection to"
+        }
+      ]
+    },
+    {
+      "value": "Session ended between {source.ip} and {destination.ip}",
+      "conditions": [
+        {
+          "field": "event.category",
+          "value": "traffic"
+        },
+        {
+          "field": "action.type",
+          "value": "end"
+        }
+      ],
+      "relationships": [
+        {
+          "source": "source.ip",
+          "target": "destination.ip",
+          "type": "connected to"
+        }
+      ]
+    },
+    {
+      "value": "Session started between {source.ip} and {destination.ip}",
+      "conditions": [
+        {
+          "field": "event.category",
+          "value": "traffic"
+        },
+        {
+          "field": "action.type",
+          "value": "start"
+        }
+      ],
+      "relationships": [
+        {
+          "source": "source.ip",
+          "target": "destination.ip",
+          "type": "connected to"
+        }
+      ]
+    }
+  ],
+  "aioniq": [
+    {
+      "value": "{gatewatcher.type}:{gatewatcher.event_type} event observed between {source.ip} and {destination.ip}",
+      "conditions": [],
+      "relationships": [
+        {
+          "source": "source.ip",
+          "target": "destination.ip",
+          "type": "connected to"
+        }
+      ]
+    },
+    {
+      "value": "{gatewatcher.type}:{gatewatcher.event_type} found {gatewatcher.state} file sent by {source.ip} to {destination.ip}",
+      "conditions": [
+        {
+          "field": "gatewatcher.type",
+          "value": "malcore"
+        }
+      ]
+    },
+    {
+      "value": "{gatewatcher.type}:{gatewatcher.event_type} found {gatewatcher.state} file sent by {source.ip} to {destination.ip}",
+      "conditions": [
+        {
+          "field": "gatewatcher.type",
+          "value": "codebreaker"
+        }
+      ]
+    },
+    {
+      "value": "Alert {rule.name} on {network.protocol} flow initiated by {source.ip} to {destination.ip}",
+      "conditions": [
+        {
+          "field": "gatewatcher.type",
+          "value": "suricata"
+        },
+        {
+          "field": "gatewatcher.event_type",
+          "value": "alert"
+        }
+      ]
+    },
+    {
+      "value": "{source.ip} performed HTTP {http.request.method} request for {url.original} on {destination.ip} (status: {http.response.status_code})",
+      "conditions": [
+        {
+          "field": "gatewatcher.type",
+          "value": "suricata"
+        },
+        {
+          "field": "gatewatcher.event_type",
+          "value": "http"
+        }
+      ],
+      "relationships": [
+        {
+          "source": "source.ip",
+          "target": "url.original",
+          "type": "requested"
+        },
+        {
+          "source": "url.original",
+          "target": "destination.ip",
+          "type": "hosted on"
+        }
+      ]
+    },
+    {
+      "value": "{source.ip} performed a DNS {dns.question.type} query for {dns.question.name}",
+      "conditions": [
+        {
+          "field": "gatewatcher.type",
+          "value": "suricata"
+        },
+        {
+          "field": "gatewatcher.event_type",
+          "value": "dns"
+        }
+      ],
+      "relationships": [
+        {
+          "source": "source.ip",
+          "target": "dns.question.name",
+          "type": "resolved"
+        }
+      ]
+    }
+  ],
+  "sentinelone": [
+    {
+      "value": "{sentinelone.primaryDescription}",
+      "conditions": []
+    }
+  ],
+  "fortiweb": [
+    {
+      "conditions": [
+        {
+          "field": "event.kind",
+          "value": "traffic"
+        }
+      ],
+      "relationships": [
+        {
+          "source": "source.ip",
+          "target": "destination.ip",
+          "type": "connected to"
+        }
+      ],
+      "value": "{event.category} request from {source.ip}:{source.port} to {destination.ip}:{destination.port} with status {http.response.status_code}"
+    }
+  ],
+  "fortimail": [
+    {
+      "conditions": [
+        {
+          "field": "event.kind",
+          "value": "statistics"
+        }
+      ],
+      "relationships": [
+        {
+          "source": "email.from",
+          "target": "email.to",
+          "type": "sent email to"
+        }
+      ],
+      "value": "A statistic is raised form the scanner. Classified as {action.outcome_reason} (action taken: {action.outcome}), from: {email.from} ({source.ip}) to: {email.to} ({destination.ip})"
+    },
+    {
+      "conditions": [
+        {
+          "field": "event.kind",
+          "value": "kevent"
+        }
+      ],
+      "relationships": [],
+      "value": "An event activity has been detected, with subactivity type: {event.category} and message: {event.message}"
+    },
+    {
+      "conditions": [
+        {
+          "field": "event.kind",
+          "value": "event"
+        },
+        {
+          "field": "action.properties.start_tls",
+          "value": "server"
+        },
+        {
+          "field": "action.properties.verify",
+          "value": "CAFAIL"
+        }
+      ],
+      "relationships": [],
+      "value": "The server {action.properties.relay} sent {action.properties.bits_sent_ratio} bits but the remote certificate is not issued by a trusted CA or the CA certificate is not available for verification"
+    },
+    {
+      "conditions": [
+        {
+          "field": "event.kind",
+          "value": "event"
+        },
+        {
+          "field": "action.properties.start_tls",
+          "value": "client"
+        },
+        {
+          "field": "action.properties.verify",
+          "value": "CAFAIL"
+        }
+      ],
+      "relationships": [],
+      "value": "The client {action.properties.relay} sent {action.properties.bits_sent_ratio} bits but the remote certificate is not issued by a trusted CA or the CA certificate is not available for verification"
+    },
+    {
+      "conditions": [
+        {
+          "field": "event.kind",
+          "value": "event"
+        },
+        {
+          "field": "network.protocol",
+          "value": "ESMTP"
+        }
+      ],
+      "relationships": [],
+      "value": "{email.from} sent {file.size} bits over protocol {network.protocol} and used relay {action.properties.relay}"
+    },
+    {
+      "conditions": [
+        {
+          "field": "event.kind",
+          "value": "event"
+        },
+        {
+          "field": "action.properties.mailer",
+          "value": "esmtp"
+        }
+      ],
+      "relationships": [],
+      "value": "An email from relay {destination.domain} was sent to {user.email} with status {event.reason}"
+    },
+    {
+      "conditions": [
+        {
+          "field": "event.kind",
+          "value": "event"
+        },
+        {
+          "field": "event.category",
+          "value": "smtp"
+        },
+        {
+          "field": "email.to",
+          "value": "postmaster"
+        },
+        {
+          "field": "action.properties.mailer",
+          "value": "local"
+        }
+      ],
+      "relationships": [],
+      "value": "A {action.properties.mailer} message was sent to {email.to} with status message {event.reason}"
+    },
+    {
+      "conditions": [
+        {
+          "field": "event.kind",
+          "value": "event"
+        },
+        {
+          "field": "action.properties.start_tls",
+          "value": "client"
+        },
+        {
+          "field": "event.reason",
+          "value": "unable to get local issuer certificate"
+        }
+      ],
+      "relationships": [],
+      "value": "The {action.properties.start_tls} is {event.reason}"
+    },
+    {
+      "conditions": [
+        {
+          "field": "event.kind",
+          "value": "event"
+        },
+        {
+          "field": "action.properties.start_tls",
+          "value": "server"
+        },
+        {
+          "field": "event.reason",
+          "value": "unable to get local issuer certificate"
+        }
+      ],
+      "relationships": [],
+      "value": "The {action.properties.start_tls} is {event.reason}"
+    },
+    {
+      "conditions": [
+        {
+          "field": "event.kind",
+          "value": "event"
+        },
+        {
+          "field": "action.properties.start_tls",
+          "value": "client"
+        },
+        {
+          "field": "event.reason",
+          "value": "self signed certificate in certificate chain"
+        }
+      ],
+      "relationships": [],
+      "value": "The {action.properties.start_tls} has a {event.reason}"
+    },
+    {
+      "conditions": [
+        {
+          "field": "event.kind",
+          "value": "event"
+        },
+        {
+          "field": "action.properties.start_tls",
+          "value": "server"
+        },
+        {
+          "field": "event.reason",
+          "value": "self signed certificate in certificate chain"
+        }
+      ],
+      "relationships": [],
+      "value": "The {action.properties.start_tls} has a {event.reason}"
+    },
+    {
+      "conditions": [
+        {
+          "field": "event.kind",
+          "value": "event"
+        },
+        {
+          "field": "action.properties.start_tls",
+          "value": "client"
+        }
+      ],
+      "relationships": [],
+      "value": "The client {action.properties.relay} sent {action.properties.bits_sent_ratio} bits with the verify status {action.properties.verify}"
+    },
+    {
+      "conditions": [
+        {
+          "field": "event.kind",
+          "value": "event"
+        },
+        {
+          "field": "action.properties.start_tls",
+          "value": "server"
+        }
+      ],
+      "relationships": [],
+      "value": "The server {action.properties.relay} sent {action.properties.bits_sent_ratio} bits with the verify status {action.properties.verify}"
+    },
+    {
+      "conditions": [
+        {
+          "field": "event.kind",
+          "value": "event"
+        },
+        {
+          "field": "event.reason",
+          "value": "Sent"
+        }
+      ],
+      "relationships": [
+        {
+          "source": "action.properties.relay",
+          "target": "email.to",
+          "type": "accepted a message from relay"
+        }
+      ],
+      "value": "{email.to} accepted a message from relay {action.properties.relay}"
+    },
+    {
+      "conditions": [
+        {
+          "field": "event.kind",
+          "value": "event"
+        },
+        {
+          "field": "event.reason",
+          "value": "sent"
+        }
+      ],
+      "relationships": [],
+      "value": "A message to {user.email} was sent"
+    },
+    {
+      "conditions": [
+        {
+          "field": "event.kind",
+          "value": "spam"
+        }
+      ],
+      "relationships": [],
+      "value": "A spam activity has been detected from {source.ip}: {event.message}"
+    },
+    {
+      "conditions": [
+        {
+          "field": "event.kind",
+          "value": "virus"
+        },
+        {
+          "field": "file.type",
+          "value": "file"
+        },
+        {
+          "field": "action.properties.event_status",
+          "value": "CLEAN"
+        }
+      ],
+      "relationships": [],
+      "value": "A {file.type} named {file.name} (SHA-256: {file.hash.sha256}) was considered as {action.properties.event_status}"
+    },
+    {
+      "conditions": [
+        {
+          "field": "event.kind",
+          "value": "virus"
+        },
+        {
+          "field": "file.type",
+          "value": "file"
+        }
+      ],
+      "relationships": [],
+      "value": "A {file.type} named {file.name} (SHA-256: {file.hash.sha256}) was scanned."
+    },
+    {
+      "conditions": [
+        {
+          "field": "event.kind",
+          "value": "virus"
+        }
+      ],
+      "relationships": [],
+      "value": "A virus activity has been detected: {event.message}"
+    },
+    {
+      "conditions": [
+        {
+          "field": "event.kind",
+          "value": "encrypt"
+        }
+      ],
+      "relationships": [],
+      "value": "An encryption activity has been detected: {event.message}"
+    }
+  ],
+  "retarus email security": [
+    {
+      "value": "{retarus.sender} sent an e-mail to {retarus.recipient} with status: {retarus.status} (Message-ID: {retarus.message_id})",
+      "conditions": [
+        {
+          "field": "retarus.class",
+          "value": "EVENT"
+        },
+        {
+          "field": "retarus.type",
+          "value": "MTA"
+        }
+      ]
+    },
+    {
+      "value": "Retarus Email Security analyzed a malware sent by {retarus.sender} to {retarus.recipient} with status: {retarus.status} (detection engine: {retarus.type}, Message-ID: {retarus.message_id})",
+      "conditions": [
+        {
+          "field": "retarus.class",
+          "value": "THREAT"
+        }
+      ]
+    }
+  ],
+  "harfanglab": [
+    {
+      "value": "Hostname: {host.hostname} - Source: {event.provider} - EventID: {event.code}",
+      "conditions": [
+        {
+          "field": "event.provider"
+        }
+      ]
+    },
+    {
+      "value": "{action.properties.TargetUserName} failed to log on {host.hostname} (LogonType {action.properties.LogonType})",
+      "relationships": [
+        {
+          "source": "action.properties.TargetUserName",
+          "target": "host.hostname",
+          "type": "failed to log on to"
+        }
+      ],
+      "conditions": [
+        {
+          "field": "event.provider"
+        },
+        {
+          "field": "event.code",
+          "value": "4625"
+        }
+      ]
+    },
+    {
+      "value": "{process.executable} ({process.pe.company}) executed by {user.name} is running on {host.hostname}",
+      "relationships": [
+        {
+          "source": "user.name",
+          "target": "process.command_line",
+          "type": "executed"
+        },
+        {
+          "source": "process.command_line",
+          "target": "log.hostname",
+          "type": "executed on"
+        },
+        {
+          "source": "user.name",
+          "target": "process.parent.executable",
+          "type": "executed"
+        },
+        {
+          "source": "process.command_line",
+          "target": "process.executable",
+          "type": "uses executable"
+        },
+        {
+          "source": "process.parent.executable",
+          "target": "process.executable",
+          "type": "started"
+        }
+      ],
+      "conditions": [
+        {
+          "field": "event.category",
+          "value": "process"
+        }
+      ]
+    },
+    {
+      "value": "{process.executable} on {host.hostname} handles network traffic from {source.ip}:{source.port} to {destination.ip}:{destination.port}",
+      "relationships": [
+        {
+          "source": "source.ip",
+          "target": "destination.ip",
+          "type": "connected to"
+        }
+      ],
+      "conditions": [
+        {
+          "field": "event.category",
+          "value": "network"
+        }
+      ]
+    }
+  ],
   "netflow": [
     {
       "value": "Netflow initiated by {source.ip}:{source.port} to {destination.ip}:{destination.port} with {source.packets} packets sents and {destination.packets} packets received",
@@ -73,7 +1409,342 @@
       ]
     }
   ],
+  "netfilter": [
+    {
+      "value": "{log.hostname} dropped {network.transport} traffic from {source.ip}:{source.port} to {destination.ip}:{destination.port}",
+      "relationships": [
+        {
+          "source": "source.ip",
+          "target": "destination.ip",
+          "type": "failed to connect to"
+        }
+      ],
+      "conditions": [
+        {
+          "field": "action.name",
+          "value": "drop"
+        }
+      ]
+    },
+    {
+      "value": "{log.hostname} rejected {network.transport} traffic from {source.ip}:{source.port} to {destination.ip}:{destination.port}",
+      "relationships": [
+        {
+          "source": "source.ip",
+          "target": "destination.ip",
+          "type": "failed to connect to"
+        }
+      ],
+      "conditions": [
+        {
+          "field": "action.name",
+          "value": "rjct"
+        }
+      ]
+    },
+    {
+      "value": "{log.hostname} accepted {network.transport} traffic from {source.ip}:{source.port} to {destination.ip}:{destination.port}",
+      "relationships": [
+        {
+          "source": "source.ip",
+          "target": "destination.ip",
+          "type": "connected to"
+        }
+      ],
+      "conditions": [
+        {
+          "field": "action.name",
+          "value": "accept"
+        }
+      ]
+    }
+  ],
   "fortigate": [
+    {
+      "value": "{source.ip} connected to {destination.ip}:{destination.port}",
+      "conditions": [
+        {
+          "field": "action.outcome",
+          "value": "passthrough"
+        }
+      ],
+      "relationships": [
+        {
+          "source": "source.ip",
+          "target": "destination.ip",
+          "type": "connected to"
+        }
+      ]
+    },
+    {
+      "value": "{source.ip} was denied a connection to {destination.ip}:{destination.port}",
+      "conditions": [
+        {
+          "field": "action.outcome",
+          "value": "block"
+        }
+      ],
+      "relationships": [
+        {
+          "source": "source.ip",
+          "target": "destination.ip",
+          "type": "was denied a connection to"
+        }
+      ]
+    },
+    {
+      "value": "{source.ip} was denied a connection to {destination.ip}:{destination.port}",
+      "conditions": [
+        {
+          "field": "action.outcome",
+          "value": "blocked"
+        }
+      ],
+      "relationships": [
+        {
+          "source": "source.ip",
+          "target": "destination.ip",
+          "type": "was denied a connection to"
+        }
+      ]
+    },
+    {
+      "value": "{source.ip} connected to {destination.ip}:{destination.port}",
+      "conditions": [
+        {
+          "field": "event.dataset",
+          "value": "fortinet.ips"
+        }
+      ],
+      "relationships": [
+        {
+          "source": "source.ip",
+          "target": "destination.ip",
+          "type": "connected to"
+        }
+      ]
+    },
+    {
+      "value": "{source.ip} was denied a connection to {destination.ip}:{destination.port}",
+      "conditions": [
+        {
+          "field": "event.dataset",
+          "value": "fortinet.ips"
+        },
+        {
+          "field": "action.name",
+          "value": "blocked"
+        }
+      ],
+      "relationships": [
+        {
+          "source": "source.ip",
+          "target": "destination.ip",
+          "type": "was denied a connection to"
+        }
+      ]
+    },
+    {
+      "value": "{source.ip} connected to malicious URL {url.original} (threat: {virus.virus})",
+      "conditions": [
+        {
+          "field": "event.dataset",
+          "value": "fortinet.antivirus"
+        },
+        {
+          "field": "virus.virus"
+        }
+      ],
+      "relationships": [
+        {
+          "source": "source.ip",
+          "target": "url.original",
+          "type": "connected to malicious"
+        }
+      ]
+    },
+    {
+      "value": "{source.ip} was denied a connection to malicious URL {url.original} (threat: {virus.virus})",
+      "conditions": [
+        {
+          "field": "event.dataset",
+          "value": "fortinet.antivirus"
+        },
+        {
+          "field": "action.name",
+          "value": "blocked"
+        }
+      ],
+      "relationships": [
+        {
+          "source": "source.ip",
+          "target": "url.original",
+          "type": "was blocked from connecting to malicious"
+        }
+      ]
+    },
+    {
+      "value": "{source.ip} failed to connect to {destination.ip}:{destination.port} because of SSL anomalies",
+      "conditions": [
+        {
+          "field": "action.type",
+          "value": "ssl-anomalies"
+        }
+      ],
+      "relationships": [
+        {
+          "source": "source.ip",
+          "target": "destination.ip",
+          "type": "failed to connect to"
+        }
+      ]
+    },
+    {
+      "value": "{source.ip} connected to {url.domain}{url.path} on {customer.zone_name} (category {application.category})",
+      "conditions": [
+        {
+          "field": "event.dataset",
+          "value": "fortinet.webfilter"
+        },
+        {
+          "field": "action.name",
+          "value": "passthrough"
+        }
+      ],
+      "relationships": [
+        {
+          "source": "source.ip",
+          "target": "url.domain",
+          "type": "connected to"
+        },
+        {
+          "source": "url.domain",
+          "target": "destination.ip",
+          "type": "resolves to"
+        }
+      ]
+    },
+    {
+      "value": "{source.ip} was denied a connection to {url.domain}{url.path} (category {application.category})",
+      "conditions": [
+        {
+          "field": "event.dataset",
+          "value": "fortinet.webfilter"
+        },
+        {
+          "field": "action.name",
+          "value": "blocked"
+        }
+      ],
+      "relationships": [
+        {
+          "source": "source.ip",
+          "target": "url.domain",
+          "type": "was denied a connection to"
+        },
+        {
+          "source": "url.domain",
+          "target": "destination.ip",
+          "type": "resolves to"
+        }
+      ]
+    },
+    {
+      "value": "{source.ip} connected to {destination.ip}:{destination.port} (recognised as {application.category}/{application.name})",
+      "conditions": [
+        {
+          "field": "event.dataset",
+          "value": "fortinet.app-ctrl"
+        },
+        {
+          "field": "action.name",
+          "value": "pass"
+        }
+      ],
+      "relationships": [
+        {
+          "source": "source.ip",
+          "target": "destination.ip",
+          "type": "connected to"
+        }
+      ]
+    },
+    {
+      "value": "{source.ip} connected to {url.domain}{url.path} (recognised as {application.category}/{application.name})",
+      "conditions": [
+        {
+          "field": "event.dataset",
+          "value": "fortinet.app-ctrl"
+        },
+        {
+          "field": "action.name",
+          "value": "pass"
+        },
+        {
+          "field": "url.domain"
+        }
+      ],
+      "relationships": [
+        {
+          "source": "source.ip",
+          "target": "url.domain",
+          "type": "connected to"
+        },
+        {
+          "source": "url.domain",
+          "target": "destination.ip",
+          "type": "resolves to"
+        }
+      ]
+    },
+    {
+      "value": "{source.ip} was denied a connection to {destination.ip}:{destination.port} (recognised as {application.category}/{application.name})",
+      "conditions": [
+        {
+          "field": "event.dataset",
+          "value": "fortinet.app-ctrl"
+        },
+        {
+          "field": "action.name",
+          "value": "block"
+        }
+      ],
+      "relationships": [
+        {
+          "source": "source.ip",
+          "target": "destination.ip",
+          "type": "was denied a connection to"
+        }
+      ]
+    },
+    {
+      "value": "{source.ip} was denied a connection to {url.domain}{url.path} (recognised as {application.category}/{application.name})",
+      "conditions": [
+        {
+          "field": "event.dataset",
+          "value": "fortinet.app-ctrl"
+        },
+        {
+          "field": "action.name",
+          "value": "block"
+        },
+        {
+          "field": "url.domain"
+        }
+      ],
+      "relationships": [
+        {
+          "source": "source.ip",
+          "target": "url.domain",
+          "type": "was denied a connection to"
+        },
+        {
+          "source": "url.domain",
+          "target": "destination.ip",
+          "type": "resolves to"
+        }
+      ]
+    },
     {
       "value": "{log.hostname} denied {network.protocol} traffic initiated by {source.ip}:{source.port} to {destination.ip}:{destination.port}",
       "conditions": [
@@ -276,6 +1947,18 @@
   "nginx": [
     {
       "value": "{http.request.method} request from {source.ip}: {url.original} (status: {http.response.status_code})",
+      "relationships": [
+        {
+          "source": "source.ip",
+          "target": "url.original",
+          "type": "requested"
+        },
+        {
+          "source": "url.original",
+          "target": "destination.domain",
+          "type": "hosted on"
+        }
+      ],
       "conditions": [
         {
           "field": "url.original"
@@ -284,6 +1967,18 @@
     },
     {
       "value": "{http.request.method} request from {source.ip}: {url.full} (status: {http.response.status_code})",
+      "relationships": [
+        {
+          "source": "source.ip",
+          "target": "url.original",
+          "type": "requested"
+        },
+        {
+          "source": "url.original",
+          "target": "destination.domain",
+          "type": "hosted on"
+        }
+      ],
       "conditions": [
         {
           "field": "url.full"
@@ -298,6 +1993,28 @@
         {
           "field": "url.original"
         }
+      ],
+      "relationships": [
+        {
+          "source": "user.name",
+          "target": "url.original",
+          "type": "HTTP {http.request.method} request"
+        },
+        {
+          "source": "url.original",
+          "target": "url.domain",
+          "type": "hosted on"
+        },
+        {
+          "source": "url.domain",
+          "target": "destination.ip",
+          "type": "resolved to"
+        },
+        {
+          "source": "user.name",
+          "target": "source.ip",
+          "type": "connected on"
+        }
       ]
     },
     {
@@ -306,16 +2023,52 @@
         {
           "field": "url.full"
         }
+      ],
+      "relationships": [
+        {
+          "source": "user.name",
+          "target": "url.full",
+          "type": "HTTP {http.request.method} request"
+        },
+        {
+          "source": "url.full",
+          "target": "url.domain",
+          "type": "hosted on"
+        },
+        {
+          "source": "url.domain",
+          "target": "destination.ip",
+          "type": "resolved to"
+        },
+        {
+          "source": "user.name",
+          "target": "source.ip",
+          "type": "connected on"
+        }
       ]
     }
   ],
   "unbound": [
     {
       "value": "{source.ip} performed a DNS query of type {dns.question.type} for name {dns.question.name}",
+      "relationships": [
+        {
+          "source": "source.ip",
+          "target": "dns.question.name",
+          "type": "resolved"
+        }
+      ],
       "conditions": []
     },
     {
       "value": "{source.ip} resolved domain name {dns.question.name}",
+      "relationships": [
+        {
+          "source": "source.ip",
+          "target": "dns.question.name",
+          "type": "resolved"
+        }
+      ],
       "conditions": [
         {
           "field": "dns.question.type",
@@ -523,13 +2276,58 @@
         {
           "source": "user.name",
           "target": "process.command_line",
-          "type": "executed command"
+          "type": "executed"
+        },
+        {
+          "source": "user.name",
+          "target": "process.parent.executable",
+          "type": "executed"
+        },
+        {
+          "source": "process.command_line",
+          "target": "log.hostname",
+          "type": "executed on"
+        },
+        {
+          "source": "process.command_line",
+          "target": "process.executable",
+          "type": "uses executable"
+        },
+        {
+          "source": "process.parent.executable",
+          "target": "log.hostname",
+          "type": "executed on"
+        },
+        {
+          "source": "process.parent.executable",
+          "target": "process.command_line",
+          "type": "started"
         }
       ],
       "conditions": [
         {
           "field": "action.id",
           "value": 4688
+        },
+        {
+          "field": "event.provider",
+          "value": "Microsoft-Windows-Security-Auditing"
+        }
+      ]
+    },
+    {
+      "value": "Process {process.name} exited. It was executed by {user.domain}\\{user.name} on {log.hostname}",
+      "relationships": [
+        {
+          "source": "user.name",
+          "target": "process.executable",
+          "type": "executed"
+        }
+      ],
+      "conditions": [
+        {
+          "field": "action.id",
+          "value": 4689
         },
         {
           "field": "event.provider",
@@ -926,6 +2724,26 @@
       ]
     },
     {
+      "value": "{log.hostname} allowed a connection from {source.ip}:{source.port} to {destination.ip}:{destination.port}",
+      "relationships": [
+        {
+          "source": "source.ip",
+          "target": "destination.ip",
+          "type": "connected to"
+        }
+      ],
+      "conditions": [
+        {
+          "field": "action.id",
+          "value": 5156
+        },
+        {
+          "field": "event.provider",
+          "value": "Microsoft-Windows-Security-Auditing"
+        }
+      ]
+    },
+    {
       "value": "{user.domain}\\{user.name} executed PowerShell code on {log.hostname}",
       "conditions": [
         {
@@ -1031,6 +2849,38 @@
     },
     {
       "value": "Process {process.executable} created by {user.name} on {log.hostname}",
+      "relationships": [
+        {
+          "source": "user.name",
+          "target": "process.command_line",
+          "type": "executed"
+        },
+        {
+          "source": "process.command_line",
+          "target": "log.hostname",
+          "type": "executed on"
+        },
+        {
+          "source": "process.command_line",
+          "target": "process.executable",
+          "type": "uses executable"
+        },
+        {
+          "source": "process.parent.command_line",
+          "target": "process.parent.name",
+          "type": "uses executable"
+        },
+        {
+          "source": "process.parent.command_line",
+          "target": "log.hostname",
+          "type": "executed on"
+        },
+        {
+          "source": "process.parent.command_line",
+          "target": "process.command_line",
+          "type": "started"
+        }
+      ],
       "conditions": [
         {
           "field": "action.id",
@@ -1044,6 +2894,18 @@
     },
     {
       "value": "Process {process.executable} changed the creation time of the file {file.name} on {log.hostname}",
+      "relationships": [
+        {
+          "source": "process.executable",
+          "target": "file.name",
+          "type": "changed creation time of"
+        },
+        {
+          "source": "process.executable",
+          "target": "log.hostname",
+          "type": "executed on"
+        }
+      ],
       "conditions": [
         {
           "field": "action.id",
@@ -1057,7 +2919,15 @@
     },
     {
       "value": "Network connection from {source.ip} to {destination.ip}:{destination.port} by {process.executable} on {log.hostname}",
-      "conditions": [{
+      "relationships": [
+        {
+          "source": "source.ip",
+          "target": "destination.ip",
+          "type": "connected to"
+        }
+      ],
+      "conditions": [
+        {
           "field": "action.id",
           "value": 3
         },
@@ -1068,8 +2938,29 @@
       ]
     },
     {
+      "value": "Sysmon service state changed to {action.properties.State} on {log.hostname}",
+      "conditions": [
+        {
+          "field": "action.id",
+          "value": 4
+        },
+        {
+          "field": "event.provider",
+          "value": "Microsoft-Windows-Sysmon"
+        }
+      ]
+    },
+    {
       "value": "Process {process.executable} terminated on {log.hostname}",
-      "conditions": [{
+      "relationships": [
+        {
+          "source": "process.executable",
+          "target": "log.hostname",
+          "type": "terminated on"
+        }
+      ],
+      "conditions": [
+        {
           "field": "action.id",
           "value": 5
         },
@@ -1081,7 +2972,15 @@
     },
     {
       "value": "Driver {process.executable} loaded on {log.hostname}",
-      "conditions": [{
+      "relationships": [
+        {
+          "source": "process.executable",
+          "target": "log.hostname",
+          "type": "loaded on"
+        }
+      ],
+      "conditions": [
+        {
           "field": "action.id",
           "value": 6
         },
@@ -1092,8 +2991,51 @@
       ]
     },
     {
+      "value": "Process {process.executable} loaded image {action.properties.ImageLoaded} on {log.hostname}",
+      "relationships": [
+        {
+          "source": "process.executable",
+          "target": "log.hostname",
+          "type": "executed on"
+        },
+        {
+          "source": "process.executable",
+          "target": "action.properties.ImageLoaded",
+          "type": "loaded image"
+        }
+      ],
+      "conditions": [
+        {
+          "field": "action.id",
+          "value": 7
+        },
+        {
+          "field": "event.provider",
+          "value": "Microsoft-Windows-Sysmon"
+        }
+      ]
+    },
+    {
       "value": "Process {action.properties.SourceImage} created a thread in process {action.properties.TargetImage} on {log.hostname}",
-      "conditions": [{
+      "relationships": [
+        {
+          "source": "action.properties.SourceImage",
+          "target": "log.hostname",
+          "type": "executed on"
+        },
+        {
+          "source": "action.properties.TargetImage",
+          "target": "log.hostname",
+          "type": "executed on"
+        },
+        {
+          "source": "action.properties.SourceImage",
+          "target": "action.properties.TargetImage",
+          "type": "created thread in"
+        }
+      ],
+      "conditions": [
+        {
           "field": "action.id",
           "value": 8
         },
@@ -1105,7 +3047,20 @@
     },
     {
       "value": "Process {process.executable} read on {action.properties.Device} device on {log.hostname}",
-      "conditions": [{
+      "relationships": [
+        {
+          "source": "process.executable",
+          "target": "log.hostname",
+          "type": "executed on"
+        },
+        {
+          "source": "process.executable",
+          "target": "action.properties.Device",
+          "type": "read on"
+        }
+      ],
+      "conditions": [
+        {
           "field": "action.id",
           "value": 9
         },
@@ -1116,8 +3071,39 @@
       ]
     },
     {
+      "value": "{action.properties.SourceImage} was granted {action.properties.GrantedAccess} access to {action.properties.TargetImage} on {log.hostname}",
+      "relationships": [
+        {
+          "source": "action.properties.SourceImage",
+          "target": "log.hostname",
+          "type": "executed on"
+        },
+        {
+          "source": "action.properties.TargetImage",
+          "target": "log.hostname",
+          "type": "executed on"
+        },
+        {
+          "source": "action.properties.SourceImage",
+          "target": "action.properties.TargetImage",
+          "type": "was granted access to"
+        }
+      ],
+      "conditions": [
+        {
+          "field": "action.id",
+          "value": 10
+        },
+        {
+          "field": "event.provider",
+          "value": "Microsoft-Windows-Sysmon"
+        }
+      ]
+    },
+    {
       "value": "File {file.name} created by {process.executable} on {log.hostname}",
-      "conditions": [{
+      "conditions": [
+        {
           "field": "action.id",
           "value": 11
         },
@@ -1129,7 +3115,8 @@
     },
     {
       "value": "Registry key {action.properties.TargetObject} created by {process.executable} on {log.hostname}",
-      "conditions": [{
+      "conditions": [
+        {
           "field": "action.id",
           "value": 12
         },
@@ -1145,7 +3132,8 @@
     },
     {
       "value": "Registry value {action.properties.TargetObject} created by {process.executable} on {log.hostname}",
-      "conditions": [{
+      "conditions": [
+        {
           "field": "action.id",
           "value": 12
         },
@@ -1161,7 +3149,8 @@
     },
     {
       "value": "Registry key {action.properties.TargetObject} deleted by {process.executable} on {log.hostname}",
-      "conditions": [{
+      "conditions": [
+        {
           "field": "action.id",
           "value": 12
         },
@@ -1177,7 +3166,8 @@
     },
     {
       "value": "Registry value {action.properties.TargetObject} deleted by {process.executable} on {log.hostname}",
-      "conditions": [{
+      "conditions": [
+        {
           "field": "action.id",
           "value": 12
         },
@@ -1197,6 +3187,62 @@
         {
           "field": "action.id",
           "value": 13
+        },
+        {
+          "field": "event.provider",
+          "value": "Microsoft-Windows-Sysmon"
+        }
+      ]
+    },
+    {
+      "value": "Registry key {action.properties.TargetObject} renamed to {action.properties.NewName} by {process.executable} on {log.hostname}",
+      "conditions": [
+        {
+          "field": "action.id",
+          "value": 14
+        },
+        {
+          "field": "event.provider",
+          "value": "Microsoft-Windows-Sysmon"
+        }
+      ]
+    },
+    {
+      "value": "Registry value {action.properties.TargetObject} renamed to {action.properties.NewName} by {process.executable} on {log.hostname}",
+      "conditions": [
+        {
+          "field": "action.id",
+          "value": 14
+        },
+        {
+          "field": "event.provider",
+          "value": "Microsoft-Windows-Sysmon"
+        },
+        {
+          "field": "action.properties.MessEventType",
+          "value": "RenameValue"
+        }
+      ]
+    },
+    {
+      "value": "{action.properties.Image} added a named stream to file {action.properties.TargetFilename} on {log.hostname}",
+      "conditions": [
+        {
+          "field": "action.id",
+          "value": 15
+        },
+        {
+          "field": "event.provider",
+          "value": "Microsoft-Windows-Sysmon"
+        }
+      ]
+    },
+    {
+      "value": "Sysmon configuration was updated on {log.hostname}",
+      "conditions": [
+        {
+          "field": "action.id",
+          "value": 16
         },
         {
           "field": "event.provider",
@@ -1231,8 +3277,48 @@
       ]
     },
     {
+      "value": "{action.properties.User} created WMI Event Filter {action.properties.Name} on {log.hostname}",
+      "conditions": [
+        {
+          "field": "action.id",
+          "value": 19
+        },
+        {
+          "field": "event.provider",
+          "value": "Microsoft-Windows-Sysmon"
+        }
+      ]
+    },
+    {
+      "value": "{action.properties.User} {action.properties.Operation} WMI Consumer {action.properties.Name} on {log.hostname}",
+      "conditions": [
+        {
+          "field": "action.id",
+          "value": 20
+        },
+        {
+          "field": "event.provider",
+          "value": "Microsoft-Windows-Sysmon"
+        }
+      ]
+    },
+    {
+      "value": "{action.properties.User} binded WMI Consumer {action.properties.Consumer} to Event Filter {action.properties.Filter} on {log.hostname}",
+      "conditions": [
+        {
+          "field": "action.id",
+          "value": 21
+        },
+        {
+          "field": "event.provider",
+          "value": "Microsoft-Windows-Sysmon"
+        }
+      ]
+    },
+    {
       "value": "{log.hostname} performed a DNS query for name {dns.question.name} (status: {dns.response_code})",
-      "conditions": [{
+      "conditions": [
+        {
           "field": "action.id",
           "value": 22
         },
@@ -1242,7 +3328,6 @@
         }
       ]
     },
-
     {
       "value": "Microsoft Defender Antivirus client is up and running in a healthy state on {log.hostname}",
       "conditions": [
@@ -1331,6 +3416,638 @@
         {
           "field": "event.provider",
           "value": "SecurityCenter"
+        }
+      ]
+    }
+  ],
+  "azure active directory": [
+    {
+      "value": "Azure AD: {action.name} succeeded",
+      "conditions": []
+    },
+    {
+      "value": "Azure AD: {action.name} failed (reason: {action.outcome_reason})",
+      "conditions": [
+        {
+          "field": "action.outcome",
+          "value": "failure"
+        }
+      ]
+    }
+  ],
+  "azure mysql": [
+    {
+      "value": "Azure MySQL action {action.name} recorded by {log.hostname}",
+      "conditions": []
+    },
+    {
+      "value": "{user.name} performed an SQL request on {log.hostname}",
+      "conditions": [
+        {
+          "field": "action.name",
+          "value": "log"
+        }
+      ],
+      "relationships": [
+        {
+          "source": "user.name",
+          "target": "log.hostname",
+          "type": "SQL request"
+        }
+      ]
+    },
+    {
+      "value": "A {action.name} operation was performed on a SQL table on {log.hostname}",
+      "conditions": [
+        {
+          "field": "action.type",
+          "value": "table_access_log"
+        }
+      ]
+    },
+    {
+      "value": "{user.name} connected to {log.hostname} from IP {source.ip}",
+      "conditions": [
+        {
+          "field": "action.name",
+          "value": "connect"
+        }
+      ],
+      "relationships": [
+        {
+          "source": "user.name",
+          "target": "log.hostname",
+          "type": "connected to"
+        },
+        {
+          "source": "user.name",
+          "target": "source.ip",
+          "type": "connected from"
+        }
+      ]
+    },
+    {
+      "value": "{user.name} disconnected from {log.hostname} (source IP: {source.ip})",
+      "conditions": [
+        {
+          "field": "action.name",
+          "value": "disconnect"
+        }
+      ],
+      "relationships": [
+        {
+          "source": "user.name",
+          "target": "log.hostname",
+          "type": "disconnected from"
+        },
+        {
+          "source": "user.name",
+          "target": "source.ip",
+          "type": "connected from"
+        }
+      ]
+    }
+  ],
+  "azure network watcher": [
+    {
+      "value": "{source.ip} connected to {destination.ip}:{destination.port}",
+      "conditions": [
+        {
+          "field": "action.name",
+          "value": "accept"
+        }
+      ],
+      "relationships": [
+        {
+          "source": "source.ip",
+          "target": "destination.ip",
+          "type": "connected to"
+        }
+      ]
+    },
+    {
+      "value": "A connection from {source.ip} to {destination.ip}:{destination.port} was denied",
+      "conditions": [
+        {
+          "field": "action.name",
+          "value": "reject"
+        }
+      ],
+      "relationships": [
+        {
+          "source": "source.ip",
+          "target": "destination.ip",
+          "type": "was denied a connection to"
+        }
+      ]
+    }
+  ],
+  "auditbeat": [
+    {
+      "value": "{event.module}/{event.action} event on {log.hostname}",
+      "conditions": []
+    },
+    {
+      "value": "File {file.path} was scanned for the first time on {log.hostname} (SHA-1: {file.hash.sha1})",
+      "conditions": [
+        {
+          "field": "event.action",
+          "value": "initial_scan"
+        }
+      ],
+      "relationships": [
+        {
+          "source": "file.path",
+          "target": "log.hostname",
+          "type": "was scanned on"
+        }
+      ]
+    },
+    {
+      "value": "File {file.path} was created on {log.hostname}",
+      "conditions": [
+        {
+          "field": "event.action",
+          "value": "created"
+        },
+        {
+          "field": "event.module",
+          "value": "file_integrity"
+        }
+      ],
+      "relationships": [
+        {
+          "source": "file.path",
+          "target": "log.hostname",
+          "type": "was created on"
+        }
+      ]
+    },
+    {
+      "value": "{user.name} executed {process.title} on {log.hostname}",
+      "conditions": [
+        {
+          "field": "event.category",
+          "value": "process"
+        },
+        {
+          "field": "event.action",
+          "value": "executed"
+        }
+      ],
+      "relationships": [
+        {
+          "source": "user.name",
+          "target": "process.title",
+          "type": "executed"
+        },
+        {
+          "source": "process.title",
+          "target": "process.executable",
+          "type": "uses executable"
+        },
+        {
+          "source": "process.title",
+          "target": "log.hostname",
+          "type": "executed on"
+        }
+      ]
+    },
+    {
+      "value": "A session for user {user.name} ended on {log.hostname}",
+      "conditions": [
+        {
+          "field": "event.action",
+          "value": "ended-session"
+        }
+      ],
+      "relationships": [
+        {
+          "source": "user.name",
+          "target": "log.hostname",
+          "type": "ended session on"
+        }
+      ]
+    },
+    {
+      "value": "A sudo session from user {user.name} to user {user.effective.name} ended on {log.hostname}",
+      "conditions": [
+        {
+          "field": "event.action",
+          "value": "ended-session"
+        },
+        {
+          "field": "process.executable",
+          "value": "/usr/bin/sudo"
+        }
+      ],
+      "relationships": [
+        {
+          "source": "user.effective.name",
+          "target": "log.hostname",
+          "type": "ended session on"
+        },
+        {
+          "source": "user.name",
+          "target": "user.effective.name",
+          "type": "used sudo to act as"
+        }
+      ]
+    },
+    {
+      "value": "A session for user {user.name} started on {log.hostname}",
+      "conditions": [
+        {
+          "field": "event.action",
+          "value": "started-session"
+        }
+      ],
+      "relationships": [
+        {
+          "source": "user.name",
+          "target": "log.hostname",
+          "type": "started session on"
+        }
+      ]
+    },
+    {
+      "value": "A sudo session from user {user.name} to user {user.effective.name} started on {log.hostname}",
+      "conditions": [
+        {
+          "field": "event.action",
+          "value": "started-session"
+        },
+        {
+          "field": "process.executable",
+          "value": "/usr/bin/sudo"
+        }
+      ],
+      "relationships": [
+        {
+          "source": "user.effective.name",
+          "target": "log.hostname",
+          "type": "started session on"
+        },
+        {
+          "source": "user.name",
+          "target": "user.effective.name",
+          "type": "used sudo to act as"
+        }
+      ]
+    },
+    {
+      "value": "User {user.name} connected to {destination.ip} from process {process.name} on {log.hostname}",
+      "conditions": [
+        {
+          "field": "event.action",
+          "value": "network_flow"
+        }
+      ],
+      "relationships": [
+        {
+          "source": "user.name",
+          "target": "process.name",
+          "type": "executed"
+        },
+        {
+          "source": "process.name",
+          "target": "log.hostname",
+          "type": "executed on"
+        },
+        {
+          "source": "process.name",
+          "target": "destination.ip",
+          "type": "connected to"
+        }
+      ]
+    },
+    {
+      "value": "User {user.name} connected to {destination.domain} from process {process.name} on {log.hostname}",
+      "conditions": [
+        {
+          "field": "event.action",
+          "value": "network_flow"
+        },
+        {
+          "field": "destination.domain"
+        }
+      ],
+      "relationships": [
+        {
+          "source": "user.name",
+          "target": "process.name",
+          "type": "executed"
+        },
+        {
+          "source": "process.name",
+          "target": "log.hostname",
+          "type": "executed on"
+        },
+        {
+          "source": "process.name",
+          "target": "destination.domain",
+          "type": "connected to"
+        },
+        {
+          "source": "destination.domain",
+          "target": "destination.ip",
+          "type": "resolves to"
+        }
+      ]
+    },
+    {
+      "value": "Process {process.name} started by {user.name} attempted a syscall restricted by the Secure Computing Policy on {log.hostname}",
+      "conditions": [
+        {
+          "field": "event.action",
+          "value": "violated-seccomp-policy"
+        }
+      ],
+      "relationships": [
+        {
+          "source": "user.name",
+          "target": "process.name",
+          "type": "executed"
+        },
+        {
+          "source": "process.name",
+          "target": "log.hostname",
+          "type": "executed on"
+        }
+      ]
+    },
+    {
+      "value": "Process {process.title} started by {user.name} violated the AppArmor policy on {log.hostname}",
+      "conditions": [
+        {
+          "field": "event.action",
+          "value": "violated-apparmor-policy"
+        }
+      ],
+      "relationships": [
+        {
+          "source": "user.name",
+          "target": "process.title",
+          "type": "executed"
+        },
+        {
+          "source": "process.title",
+          "target": "log.hostname",
+          "type": "executed on"
+        },
+        {
+          "source": "process.title",
+          "target": "process.executable",
+          "type": "uses executable"
+        }
+      ]
+    },
+    {
+      "value": "Process {process.executable} (pid: {process.pid}) is no longer using {user.name} credentials on {log.hostname}",
+      "conditions": [
+        {
+          "field": "event.action",
+          "value": "disposed-credentials"
+        }
+      ],
+      "relationships": [
+        {
+          "source": "process.executable",
+          "target": "user.name",
+          "type": "used credentials"
+        },
+        {
+          "source": "process.executable",
+          "target": "log.hostname",
+          "type": "executed on"
+        }
+      ]
+    },
+    {
+      "value": "Process {process.executable} (pid: {process.pid}) is no longer using {user.effective.name} credentials on {log.hostname}",
+      "conditions": [
+        {
+          "field": "event.action",
+          "value": "disposed-credentials"
+        },
+        {
+          "field": "user.effective.name"
+        }
+      ],
+      "relationships": [
+        {
+          "source": "process.executable",
+          "target": "user.effective.name",
+          "type": "used credentials"
+        },
+        {
+          "source": "process.executable",
+          "target": "log.hostname",
+          "type": "executed on"
+        }
+      ]
+    },
+    {
+      "value": "Process {process.executable} (pid: {process.pid}) acquired {user.name} credentials on {log.hostname}",
+      "conditions": [
+        {
+          "field": "event.action",
+          "value": "acquired-credentials"
+        }
+      ],
+      "relationships": [
+        {
+          "source": "process.executable",
+          "target": "user.name",
+          "type": "used credentials"
+        },
+        {
+          "source": "process.executable",
+          "target": "log.hostname",
+          "type": "executed on"
+        }
+      ]
+    },
+    {
+      "value": "Process {process.executable} (pid: {process.pid}) acquired {user.effective.name} credentials on {log.hostname}",
+      "conditions": [
+        {
+          "field": "event.action",
+          "value": "acquired-credentials"
+        },
+        {
+          "field": "user.effective.name"
+        }
+      ],
+      "relationships": [
+        {
+          "source": "process.executable",
+          "target": "user.effective.name",
+          "type": "used credentials"
+        },
+        {
+          "source": "process.executable",
+          "target": "log.hostname",
+          "type": "executed on"
+        }
+      ]
+    },
+    {
+      "value": "Process {process.executable} (pid: {process.pid}) refreshed {user.name} credentials on {log.hostname}",
+      "conditions": [
+        {
+          "field": "event.action",
+          "value": "refreshed-credentials"
+        }
+      ],
+      "relationships": [
+        {
+          "source": "process.executable",
+          "target": "user.name",
+          "type": "used credentials"
+        },
+        {
+          "source": "process.executable",
+          "target": "log.hostname",
+          "type": "executed on"
+        }
+      ]
+    },
+    {
+      "value": "Process {process.executable} (pid: {process.pid}) refreshed {user.effective.name} credentials on {log.hostname}",
+      "conditions": [
+        {
+          "field": "event.action",
+          "value": "refreshed-credentials"
+        },
+        {
+          "field": "user.effective.name"
+        }
+      ],
+      "relationships": [
+        {
+          "source": "process.executable",
+          "target": "user.effective.name",
+          "type": "used credentials"
+        },
+        {
+          "source": "process.executable",
+          "target": "log.hostname",
+          "type": "executed on"
+        }
+      ]
+    },
+    {
+      "value": "A process changed its login ID to {user.effective.name} on {log.hostname}",
+      "conditions": [
+        {
+          "field": "event.action",
+          "value": "changed-login-id-to"
+        }
+      ]
+    },
+    {
+      "value": "Process {process.name} (pid: {process.pid}) running as {user.name} stopped on {log.hostname}",
+      "conditions": [
+        {
+          "field": "event.action",
+          "value": "process_stopped"
+        }
+      ],
+      "relationships": [
+        {
+          "source": "user.name",
+          "target": "process.name",
+          "type": "executed"
+        },
+        {
+          "source": "process.name",
+          "target": "log.hostname",
+          "type": "executed on"
+        }
+      ]
+    },
+    {
+      "value": "Process {process.name} (pid: {process.pid}) running as {user.name} started on {log.hostname}",
+      "conditions": [
+        {
+          "field": "event.action",
+          "value": "process_started"
+        }
+      ],
+      "relationships": [
+        {
+          "source": "user.name",
+          "target": "process.name",
+          "type": "executed"
+        },
+        {
+          "source": "process.name",
+          "target": "log.hostname",
+          "type": "executed on"
+        }
+      ]
+    },
+    {
+      "value": "Process {process.executable} (pid: {process.pid}) was authorized to login as {user.effective.name} on {log.hostname}",
+      "conditions": [
+        {
+          "field": "event.action",
+          "value": "was-authorized"
+        }
+      ],
+      "relationships": [
+        {
+          "source": "process.executable",
+          "target": "user.effective.name",
+          "type": "was authorized to login as"
+        },
+        {
+          "source": "process.executable",
+          "target": "log.hostname",
+          "type": "executed on"
+        }
+      ]
+    },
+    {
+      "value": "Error on {log.hostname}: {error.message}",
+      "conditions": [
+        {
+          "field": "error.message"
+        }
+      ]
+    },
+    {
+      "value": "{user.name} authenticated on {log.hostname}",
+      "conditions": [
+        {
+          "field": "event.action",
+          "value": "authenticated"
+        }
+      ],
+      "relationships": [
+        {
+          "source": "user.name",
+          "target": "log.hostname",
+          "type": "authenticated on"
+        }
+      ]
+    },
+    {
+      "value": "Host message on {log.hostname}: {auditbeat.message}",
+      "conditions": [
+        {
+          "field": "event.action",
+          "value": "host"
+        }
+      ]
+    },
+    {
+      "value": "Audit Configuration was changed on {log.hostname}",
+      "conditions": [
+        {
+          "field": "event.action",
+          "value": "changed-audit-configuration"
         }
       ]
     }
